@@ -209,27 +209,49 @@ void charInfo(int& hlth, int& exp, int& eneHlth) {
 //This function takes character class and return player attack points
 int classChar(string cls) {
 
-	int max, min;
+	int max=0, min=0;
+	if (invent.weapons[0] != "" || invent.weapons[1] != "" || invent.weapons[2] != "" || invent.weapons[3] != "" || invent.weapons[4] != "") {
+		if (invent.weapons[4] != "") {
+			min = 99;
+			max = 100;
+		}
+		else if (invent.weapons[3] != "") {
+			min = 60;
+			max = 70;
+		}
+		else if (invent.weapons[2] != "") {
+			min = 20;
+			max = 30;
+		}
+		else if (invent.weapons[1] != "") {
+			min = 15;
+			max = 25;
+		}
+		else if (invent.weapons[0] != "") {
+			min = 10;
+			max = 20;
+		}
+	}
 
 	srand(time(0));
 
 
 	if (cls == "Warrior") {
 		//Attack max 15
-		max = 15;
-		min = 1;
+		max += 15;
+		min += 1;
 		return rand() % (max - min + 1) + min;
 	}
 	else if (cls == "Mage") {
 		//Attack max 20
-		max = 20;
-		min = 15;
+		max += 20;
+		min += 15;
 		return rand() % (max - min + 1) + min;
 	}
 	else if (cls == "Rogue") {
 		//Attack max 30
-		max = 30;
-		min = 20;
+		max += 30;
+		min += 20;
 		return rand() % (max - min + 1) + min;
 	}
 }
@@ -264,6 +286,7 @@ void inventry() {
 			character.exp -= 10;
 			invent.weapons[0] = invent.lockedWeapons[0];
 			invent.lockedWeapons[0] = "";
+			inventry();
 		}
 	}
 	else if (select == 2) {
@@ -271,6 +294,7 @@ void inventry() {
 			character.exp -= 20;
 			invent.weapons[1] = invent.lockedWeapons[1];
 			invent.lockedWeapons[1] = "";
+
 		}
 	}
 	else if (select == 3) {
@@ -278,6 +302,7 @@ void inventry() {
 			character.exp -= 30;
 			invent.weapons[2] = invent.lockedWeapons[2];
 			invent.lockedWeapons[2] = "";
+			inventry();
 		}
 	}
 	else if (select == 4) {
@@ -285,6 +310,7 @@ void inventry() {
 			character.exp -= 40;
 			invent.weapons[3] = invent.lockedWeapons[3];
 			invent.lockedWeapons[3] = "";
+			inventry();
 		}
 	}
 	else if (select == 5) {
@@ -292,6 +318,7 @@ void inventry() {
 			character.exp -= 50;
 			invent.weapons[4] = invent.lockedWeapons[4];
 			invent.lockedWeapons[4] = "";
+			inventry();
 		}
 	}
 	else if (select == 0) {
