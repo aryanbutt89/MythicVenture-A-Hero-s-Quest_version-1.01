@@ -84,7 +84,7 @@ void main() {
 			checkClear = true;
 
 		//this prints main menu
-		cout << "\n\t\tMain Menu\n\t1. Start Game\n\t2. Inventory\n\t3. Characters\n\t4. Exit\n\tEnter your Choice: ";
+		cout << "\n\tMain Menu\n\n\t1. Start Game\n\t2. Inventory\n\t3. Characters\n\t4. Exit\n\tEnter your Choice: ";
 
 		cin >> mainMenuSelection; //here this gets input from user
 
@@ -209,7 +209,7 @@ void charInfo(int& hlth, int& exp, int& eneHlth) {
 //This function takes character class and return player attack points
 int classChar(string cls) {
 
-	int max=0, min=0;
+	int max = 0, min = 0;
 	if (invent.weapons[0] != "" || invent.weapons[1] != "" || invent.weapons[2] != "" || invent.weapons[3] != "" || invent.weapons[4] != "") {
 		if (invent.weapons[4] != "") {
 			min = 99;
