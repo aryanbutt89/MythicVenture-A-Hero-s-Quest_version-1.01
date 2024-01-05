@@ -84,7 +84,7 @@ void main() {
 			checkClear = true;
 
 		//this prints main menu
-		cout << "\n\tMain Menu\n\n\t1. Start Game\n\t2. Inventory\n\t3. Characters\n\t4. Exit\n\tEnter your Choice: ";
+		cout << "\n\t\tMain Menu\n\t1. Start Game\n\t2. Inventory\n\t3. Characters\n\t4. Exit\n\tEnter your Choice: ";
 
 		cin >> mainMenuSelection; //here this gets input from user
 
@@ -209,7 +209,7 @@ void charInfo(int& hlth, int& exp, int& eneHlth) {
 //This function takes character class and return player attack points
 int classChar(string cls) {
 
-	int max = 0, min = 0;
+	int max=0, min=0;
 	if (invent.weapons[0] != "" || invent.weapons[1] != "" || invent.weapons[2] != "" || invent.weapons[3] != "" || invent.weapons[4] != "") {
 		if (invent.weapons[4] != "") {
 			min = 99;
@@ -274,13 +274,14 @@ void inventry() {
 	for (int i = 0; i < size(invent.lockedWeapons); i++) {
 		if (invent.lockedWeapons[i] == "");
 		else {
-			cout << "\t" << i + 1 << " " + invent.lockedWeapons[i] + " Unlock in " << (i + 1) * 11 << " Points" << endl;
+			cout << "\t" << i + 1 << " " + invent.lockedWeapons[i] + "\tUnlock in" << (i + 1) * 11 << " Points" << endl;
 		}
 	}
 
 	cout << "\n\tFor Purchase Weapons, Enter Weapon Number: ";
 	cout << "\n\t0. Main menu\n\t99. Exit Game\n\tEnter Option: ";
 	cin >> select;
+	cin.ignore();
 	if (select == 1) {
 		if (character.exp >= 10) {
 			character.exp -= 10;
@@ -288,6 +289,7 @@ void inventry() {
 			invent.lockedWeapons[0] = "";
 			inventry();
 		}
+		else inventry();
 	}
 	else if (select == 2) {
 		if (character.exp >= 20) {
@@ -296,6 +298,7 @@ void inventry() {
 			invent.lockedWeapons[1] = "";
 
 		}
+		else inventry();
 	}
 	else if (select == 3) {
 		if (character.exp >= 30) {
@@ -303,7 +306,7 @@ void inventry() {
 			invent.weapons[2] = invent.lockedWeapons[2];
 			invent.lockedWeapons[2] = "";
 			inventry();
-		}
+		} else inventry();
 	}
 	else if (select == 4) {
 		if (character.exp >= 40) {
@@ -311,7 +314,7 @@ void inventry() {
 			invent.weapons[3] = invent.lockedWeapons[3];
 			invent.lockedWeapons[3] = "";
 			inventry();
-		}
+		} else inventry();
 	}
 	else if (select == 5) {
 		if (character.exp >= 50) {
@@ -319,7 +322,7 @@ void inventry() {
 			invent.weapons[4] = invent.lockedWeapons[4];
 			invent.lockedWeapons[4] = "";
 			inventry();
-		}
+		} else inventry();
 	}
 	else if (select == 0) {
 		main();
@@ -327,7 +330,8 @@ void inventry() {
 	else if (select == 99) {
 		exitGame();
 	}
-
+	else
+		inventry();
 
 }
 
@@ -438,7 +442,7 @@ void lvl1() {
 
 // BabyDragon
 void lvl1BDragon() {
-	int a = 0, b = 0, i = 0;
+	int enemyAttack = 0, playerAttack = 0, i = 0; 
 	string choose, selectWays;
 	cout << "\n\tHere is Baby Dragon";
 	while (character.characterHealth > 0) {
@@ -449,11 +453,11 @@ void lvl1BDragon() {
 			cin >> choose;
 			if (choose == "1") {
 				++i;
-				b = classChar(character.characterRank);
-				dragon.baby = dragon.baby - b;
-				cout << "\n\tYou Attacked " << b << " Points";
-				a = 0;
-				charInfo(a, b, dragon.baby);
+				playerAttack = classChar(character.characterRank);
+				dragon.baby = dragon.baby - playerAttack;
+				cout << "\n\tYou Attacked " << playerAttack << " Points";
+				enemyAttack = 0;
+				charInfo(enemyAttack, playerAttack, dragon.baby);
 				if (dragon.baby <= 0) {
 					dragon.baby = 40;
 					character.characterExp += 5;
@@ -515,11 +519,11 @@ void lvl1BDragon() {
 			Sleep(1000);
 			cout << ".";
 			Sleep(1000);
-			b = 0;
-			a = rand() % 10 + 1;
-			cout << "\n\tBaby Dragon Attacked " << a << " Points\n\t";
+			playerAttack = 0;
+			enemyAttack = rand() % 10 + 1;
+			cout << "\n\tBaby Dragon Attacked " << enemyAttack << " Points\n\t";
 
-			charInfo(a, b, dragon.baby);
+			charInfo(enemyAttack, playerAttack, dragon.baby);
 			if (character.characterHealth <= 0) {
 				character.characterHealth = 100;
 				cout << "\n\n\tYou have lost this level.\n";
